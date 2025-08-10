@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,25 +18,76 @@
 </head>
 <body>
 <canvas id="loveCanvas"></canvas>
+
 <script>
 const canvas = document.getElementById('loveCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;const hearts = []; const fontMain = '60px Great Vibes'; const fontSub = '40px Sacramento';
+canvas.height = window.innerHeight;
 
-class Heart { constructor(x, y, size, speed) { this.x = x; this.y = y; this.size = size; this.speed = speed; this.opacity = 1; } draw() { ctx.globalAlpha = this.opacity; ctx.font = ${this.size}px Arial; ctx.fillText('❤️', this.x, this.y); ctx.globalAlpha = 1; } update() { this.y -= this.speed; this.opacity -= 0.005; } }
+const hearts = [];
+const fontMain = '60px "Great Vibes"';
+const fontSub = '40px "Sacramento"';
 
-function createHeart() { const x = Math.random() * canvas.width; const y = canvas.height + 20; const size = 20 + Math.random() * 20; const speed = 1 + Math.random() * 2; hearts.push(new Heart(x, y, size, speed)); }
+class Heart {
+  constructor(x, y, size, speed) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.speed = speed;
+    this.opacity = 1;
+  }
+  draw() {
+    ctx.globalAlpha = this.opacity;
+    ctx.font = `${this.size}px Arial`;
+    ctx.fillText('❤️', this.x, this.y);
+    ctx.globalAlpha = 1;
+  }
+  update() {
+    this.y -= this.speed;
+    this.opacity -= 0.005;
+  }
+}
 
-function drawText() { ctx.font = fontMain; ctx.fillStyle = 'white'; ctx.textAlign = 'center'; ctx.shadowColor = 'rgba(255,255,255,0.8)'; ctx.shadowBlur = 20; ctx.fillText('My Love, You Are My Everything ❤️', canvas.width / 2, canvas.height / 2);
+function createHeart() {
+  const x = Math.random() * canvas.width;
+  const y = canvas.height + 20;
+  const size = 20 + Math.random() * 20;
+  const speed = 1 + Math.random() * 2;
+  hearts.push(new Heart(x, y, size, speed));
+}
 
-ctx.font = fontSub; ctx.shadowBlur = 0; ctx.fillText('Forever and Always in My Heart', canvas.width / 2, canvas.height / 2 + 60); }
+function drawText() {
+  ctx.font = fontMain;
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.shadowColor = 'rgba(255,255,255,0.8)';
+  ctx.shadowBlur = 20;
+  ctx.fillText('My Love, You Are My Everything ❤️', canvas.width / 2, canvas.height / 2);
 
-function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); drawText(); hearts.forEach((heart, index) => { heart.update(); heart.draw(); if (heart.opacity <= 0) hearts.splice(index, 1); }); requestAnimationFrame(animate); }
+  ctx.font = fontSub;
+  ctx.shadowBlur = 0;
+  ctx.fillText('Forever and Always in My Heart', canvas.width / 2, canvas.height / 2 + 60);
+}
 
-setInterval(createHeart, 300); animate();
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawText();
+  hearts.forEach((heart, index) => {
+    heart.update();
+    heart.draw();
+    if (heart.opacity <= 0) hearts.splice(index, 1);
+  });
+  requestAnimationFrame(animate);
+}
 
-window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }); </script>
+setInterval(createHeart, 300);
+animate();
 
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
 </body>
 </html>
